@@ -2,7 +2,7 @@ joblib
 wandb
 hydra-core
 numpy
-scipy==1.13.1
+scipy>=1.16.3
 pandas
 scikit-learn
 pytorch-lightning
@@ -15,4 +15,4 @@ matplotlib
 geoopt
 einops
 torchdiffeq
-webdataset==0.2.57
+webdataset>=1.0.2
