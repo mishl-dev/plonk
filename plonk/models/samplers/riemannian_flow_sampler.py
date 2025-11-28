@@ -31,7 +31,7 @@ def riemannian_flow_sampler(
             dim=0,
         )
     for step, (gamma_now, gamma_next) in enumerate(zip(gammas[:-1], gammas[1:])):
-        with torch.cuda.amp.autocast(dtype=dtype):
+        with torch.amp.autocast('cuda', dtype=dtype):
             if cfg_rate > 0 and conditioning_keys is not None:
                 stacked_batch["y"] = torch.cat([x_cur, x_cur], dim=0)
                 stacked_batch["gamma"] = gamma_now.expand(x_cur.shape[0] * 2)
@@ -73,7 +73,7 @@ def ode_riemannian_flow_sampler(
     )
     dtype = torch.float32
     for step, (t_now, t_next) in enumerate(zip(steps[:-1], steps[1:]), total=num_steps):
-        with torch.cuda.amp.autocast(dtype=dtype):
+        with torch.amp.autocast('cuda', dtype=dtype):
             denoised = odefunc(t_now, x_cur)
         gamma_now = scheduler(t_now)
         gamma_next = scheduler(t_next)
